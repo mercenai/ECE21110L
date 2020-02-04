@@ -1,0 +1,64 @@
+function[x,k]=gauss_seidel(A,b,epsilon)
+
+if (abs(A(1,1))>=abs(A(1,2))+abs(A(1,3))) && (abs(A(2,2))>=abs(A(2,1))+abs(A(2,3))) && (abs(A(3,3))>=abs(A(3,1))+abs(A(3,2)))
+    
+x1=(1/A(1,1))*(b(1)-A(1,2)*0-A(1,3)*0);
+x2=(1/A(2,2))*(b(2)-A(2,1)*0-A(2,3)*0);
+x3=(1/A(3,3))*(b(3)-A(3,1)*0-A(3,2)*0);
+k=1;
+x1e=inf;
+x2e=inf;
+x3e=inf;
+
+while x1e>epsilon && x2e>epsilon && x3e>epsilon
+    X1=(1/A(1,1))*(b(1)-(A(1,2)*x2)-(A(1,3)*x3));
+    x1e=abs(X1-x1);
+    x1=X1;
+    X2=(1/A(2,2))*(b(2)-A(2,1)*X1-A(2,3)*x3);
+    x2e=abs(X2-x2);
+    x2=X2;
+    X3=(1/A(3,3))*(b(3)-A(3,1)*X1-A(3,2)*X2);
+    x3e=abs(X3-x3);
+    x3=X3;
+    k=k+1;
+end
+
+x=[x1 x2 x3];
+
+else
+    print('The matrix must be diagonally dominant.')
+end
+
+function[x,k]=Jacobi(A,b,epsilon)
+
+if (abs(A(1,1))>=abs(A(1,2))+abs(A(1,3))) && (abs(A(2,2))>=abs(A(2,1))+abs(A(2,3))) && (abs(A(3,3))>=abs(A(3,1))+abs(A(3,2)))
+
+%1st iteration
+x1=(1/A(1,1))*(b(1)-A(1,2)*0-A(1,3)*0);
+x2=(1/A(2,2))*(b(2)-A(2,1)*0-A(2,3)*0);
+x3=(1/A(3,3))*(b(3)-A(3,1)*0-A(3,2)*0);
+k=1;
+x1e=inf;
+x2e=inf;
+x3e=inf;
+
+while x1e>epsilon && x2e>epsilon && x3e>epsilon
+    X1=(1/A(1,1))*(b(1)-(A(1,2)*x2)-(A(1,3)*x3));
+    X2=(1/A(2,2))*(b(2)-A(2,1)*x1-A(2,3)*x3);
+    X3=(1/A(3,3))*(b(3)-A(3,1)*x1-A(3,2)*x2);
+    x1e=abs(X1-x1);
+    x2e=abs(X2-x2);
+    x3e=abs(X3-x3);
+    x1=X1;
+    x2=X2;
+    x3=X3;
+    k=k+1;
+end
+
+x=[x1 x2 x3];
+
+else
+    print('The matrix must be diagonally dominant.')
+end
+
+end
